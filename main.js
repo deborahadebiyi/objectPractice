@@ -13,14 +13,22 @@ function random(min, max) {
   return num;
 }
 
-function Ball(x, y, velX, velY, color, size) {
+function Shape(x, y, velX, velY, exists) {
   this.x = x;
   this.y = y;
   this.velX = velX;
   this.velY = velY;
+  this.exists = exists;
+}
+
+function Ball(x, y, velX, velY, exists, color, size) {
+  Shape.call(this, x, y, velX, velY, exists);
+  this.exists = true;
   this.color = color;
   this.size = size;
 }
+/*the call() function is used to inherit all the properties from a 
+specified constructor (Shape) */
 
 Ball.prototype.draw = function() {
   ctx.beginPath();
@@ -52,7 +60,7 @@ Ball.prototype.update = function() {
 
 Ball.prototype.collisionDetect = function() {
   for (let j = 0; j < balls.length; j++) {
-    if (!(this === balls[j])) {
+    if (!(this === balls[j]) && balls[j].exists) {
       const dx = this.x - balls[j].x;
       const dy = this.y - balls[j].y;
       const distance = Math.sqrt(dx * dx + dy * dy);
@@ -75,6 +83,7 @@ while (balls.length < 25) {
     random(0 + size,height - size),
     random(-7,7),
     random(-7,7),
+    exists = true,
     'rgb(' + random(0,255) + ',' + random(0,255) + ',' + random(0,255) +')',
     size
   );

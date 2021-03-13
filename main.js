@@ -30,6 +30,12 @@ function Ball(x, y, velX, velY, exists, color, size) {
 /*the call() function is used to inherit all the properties from a 
 specified constructor (Shape) */
 
+function EvilCircle(x, y, velX, velY, exists, color, size) {
+  Shape.call(this, x, y, 20, 20, exists);
+  this.color = 'white';
+  this.size = 10;
+}
+
 Ball.prototype.draw = function() {
   ctx.beginPath();
   ctx.fillStyle = this.color;

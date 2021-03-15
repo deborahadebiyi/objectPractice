@@ -2,6 +2,8 @@
 
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
+const para = document.querySelector('p');
+const count= document.querySelector('div')
 
 const width = canvas.width = window.innerWidth;
 const height = canvas.height = window.innerHeight;
@@ -158,7 +160,8 @@ function loop() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
   ctx.fillRect(0, 0, width, height);
 
-  let small = new EvilCircle(20, 20, 30, 30, true, 'white', 50);
+  let currentCount = balls.length
+  let small = new EvilCircle(200, 200, 30, 30, true, 'white', 50);
   EvilCircle.prototype.setControls();
 
   for (let i = 0; i < balls.length; i++) {
@@ -169,6 +172,9 @@ function loop() {
       small.draw();
       small.checkBounds();
       small.collisionDetect();
+    } else if (balls[i].exists === false) {
+      currentCount -= 1; 
+      count.textContent = `${currentCount}`;
     }
   }
 
@@ -176,6 +182,23 @@ function loop() {
 
 
 }
+
+
+// window.onload = function scoreCounter() {
+//   let currentCount = balls.length;
+
+//   for (let c = 0; c < balls.length; c++) {
+//     if (balls[c].exists === false) {
+//       currentCount -= 1; 
+//       count.textContent = `the score is ${currentCount}`;
+//     }
+//     console.log('balls length ' + balls.length)
+//     console.log('initial count' + currentCount)
+//   }
+
+// }
+
+
 
 loop();
 

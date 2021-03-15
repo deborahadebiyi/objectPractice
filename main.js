@@ -158,15 +158,23 @@ function loop() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
   ctx.fillRect(0, 0, width, height);
 
+  let small = new EvilCircle(20, 20, 30, 30, true, 'white', 50);
+  EvilCircle.prototype.setControls();
+
   for (let i = 0; i < balls.length; i++) {
-    balls[i].draw();
-    balls[i].update();
-    balls[i].collisionDetect();
+    if (balls[i].exists === true) {
+      balls[i].draw();
+      balls[i].update();
+      balls[i].collisionDetect();
+      small.draw();
+      small.checkBounds();
+      small.collisionDetect();
+    }
   }
 
   requestAnimationFrame(loop);
 
-  let evilObj = new EvilCircle(x, y, 20, 20, true, 'white', 50);
+
 }
 
 loop();
